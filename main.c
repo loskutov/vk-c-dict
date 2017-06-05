@@ -46,8 +46,9 @@ int main(int argc, char *argv[])
 	struct hash_table *table;
 	if (hash_table_build(&table, n, list) != 0) {
 		perror("hash_table_build");
+		for (struct list_node *node = list; node; node = node->next)
+			free(node->value);
 		list_free(list);
-		free(line);
 		return -1;
 	}
 
